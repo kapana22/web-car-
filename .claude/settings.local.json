@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(New-Item -ItemType Directory -Path \"public\\\\images\\\\gallery\" -Force)",
+      "PowerShell(Remove-Item \".\\\\index \\(1\\).html\" -Force; Get-ChildItem -Recurse -Force | Where-Object { $_.FullName -notmatch 'node_modules' } | Select-Object FullName, Length | Format-Table -AutoSize)",
+      "PowerShell(try { $w = Get-Command winget -ErrorAction Stop; \"winget available at: $\\($w.Source\\)\"; winget --version } catch { \"winget NOT FOUND\" })",
+      "WebFetch(domain:www.autoflexcollisioncenter.com)",
+      "WebSearch",
+      "WebFetch(domain:web.archive.org)",
+      "WebFetch(domain:www.bizapedia.com)",
+      "WebFetch(domain:www.instagram.com)",
+      "WebFetch(domain:www.yelp.com)"
+    ]
+  }
+}

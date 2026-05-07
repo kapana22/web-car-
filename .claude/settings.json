@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/Infinity/Downloads/**)",
+      "PowerShell($src = \"C:\\\\Users\\\\Infinity\\\\Downloads\\\\610693506_18098360617884503_992224873104004607_n.jpg\"; $dest = \"c:\\\\Users\\\\Infinity\\\\Desktop\\\\web\\\\public\\\\images\\\\logo.jpg\"; Copy-Item $src $dest -Force; if \\(Test-Path $dest\\) { \"Saved: $dest \\($\\(\\(Get-Item $dest\\).Length\\) bytes\\)\" })",
+      "PowerShell($r = Invoke-WebRequest -Uri \"http://localhost:3000/\" -UseBasicParsing; \"Page: HTTP $\\($r.StatusCode\\)\"; $l = Invoke-WebRequest -Uri \"http://localhost:3000/images/logo.jpg\" -UseBasicParsing; \"Logo: HTTP $\\($l.StatusCode\\), $\\($l.RawContentLength\\) bytes\")",
+      "PowerShell($r = Invoke-WebRequest -Uri \"http://localhost:3000/\" -UseBasicParsing; \"Page: HTTP $\\($r.StatusCode\\), $\\($r.RawContentLength\\) bytes\"; \"topbar-inner refs: $\\(\\(\\($r.Content -split 'topbar-inner'\\).Count - 1\\)\\)\")"
+    ]
+  }
+}
