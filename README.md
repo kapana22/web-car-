@@ -1,16 +1,26 @@
 # Autoflex Collision Center — Google Ads Landing
 
-Single-page landing site for Autoflex Collision Center (Glendale, CA), with a small Express backend that captures form leads into SQLite.
+Single-page landing site for Autoflex Collision Center (Glendale, CA), with:
 
-```
+- a static landing page in `public/`
+- a local Express server for development / traditional Node hosting
+- serverless endpoints for Vercel and Netlify
+- local SQLite storage for classic Node hosting, with JSON fallback for serverless hosts
+
+```text
 web/
-├── server.js              ← Express app: serves landing + handles form
+├── api/                   ← Vercel serverless endpoints
+├── lib/                   ← shared lead/admin logic
+├── netlify/functions/     ← Netlify serverless endpoints
+├── server.js              ← local Express server
 ├── package.json
+├── vercel.json
+├── netlify.toml
 ├── .env.example           ← copy to .env and edit
-├── data/                  ← SQLite DB lives here (auto-created)
+├── data/                  ← local SQLite / JSON storage
 └── public/
     ├── index.html         ← the landing page
-    └── images/gallery/    ← swap SVG placeholders for real photos
+    └── images/gallery/    ← real shop photos
 ```
 
 ---
@@ -86,15 +96,31 @@ See `public/images/gallery/README.md` for more detail.
 
 ## Deployment
 
-For a Google Ads landing page, deploy somewhere that:
-- Has HTTPS (required by most ad policies).
-- Can run a Node.js process (any VPS, Render, Railway, Fly.io, or even a
-  small DigitalOcean droplet works).
+### Vercel
 
-If you don't want a server at all, you can host just `public/` as a
-static site (Netlify, Vercel, GitHub Pages) and replace the form
-submission with a service like Formspree or Web3Forms — but then you
-lose the SQLite leads database.
+- Connect the repo and deploy with default settings.
+- Static files are served from `public/`.
+- `/api/lead` and `/api/leads` are native Vercel functions.
+- `/admin` rewrites to `/api/admin` via `vercel.json`.
+
+### Netlify
+
+- Publish directory: `public`
+- Functions directory: `netlify/functions`
+- `netlify.toml` already wires `/api/lead`, `/api/leads`, and `/admin`.
+
+### Render / Railway / VPS
+
+- Run `npm install`
+- Run `npm start`
+- The local Express server serves the landing page and API routes directly.
+
+### Important storage note
+
+- On classic Node hosting, the app uses local SQLite by default.
+- On Vercel / Netlify serverless deployments, SQLite is not used.
+- Serverless hosts fall back to JSON storage in temporary filesystem space, which is fine for crash-free demos and basic testing but not durable production storage.
+- For permanent production lead storage, connect an external database or form service.
 
 ### Hooking up Google Ads conversion tracking
 
