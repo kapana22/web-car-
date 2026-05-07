@@ -9,9 +9,8 @@ const ADMIN_PASS = process.env.ADMIN_PASS || 'change-me-please';
 const dataDir = path.join(__dirname, 'data');
 
 function createStore() {
-  fs.mkdirSync(dataDir, { recursive: true });
-
   try {
+    fs.mkdirSync(dataDir, { recursive: true });
     const { DatabaseSync } = require('node:sqlite');
     const db = new DatabaseSync(path.join(dataDir, 'leads.db'));
 
